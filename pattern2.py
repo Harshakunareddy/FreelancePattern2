@@ -51,8 +51,8 @@ except ValueError:
 
 # Shape options
 sparkle_shapes = config['Shapes']['sparkle_shapes'].split(', ')
-shape_size_min = float(config['Shapes']['min'])
-shape_size_max = float(config['Shapes']['max'])
+initial_size = float(config['Shapes']['initial_size'])
+size_increase = float(config['Shapes']['size_increase'])
 
 
 #text
@@ -127,7 +127,7 @@ def create_sparkle():
 
 
     #sparkle.color(random.choice(sparkle_colors))
-    sparkle.shapesize(random.uniform(shape_size_min,shape_size_max))
+    sparkle.shapesize(initial_size)
     sparkle.penup()
     sparkle.goto(random.randint(-500, 500),random.randint(-500, 500))
     return sparkle
@@ -135,7 +135,8 @@ def create_sparkle():
 # Function to move the object randomly
 def move_randomly(obj):
     obj.setheading(random.randint(0, 360))
-    obj.forward(random.randint(0, 100))
+    obj.shapesize(obj.shapesize()[0] + size_increase)  # Increase the size
+    obj.forward(random.randint(0, 200))
 
 # Function to run the animation
 def run_animation(max_frames):
